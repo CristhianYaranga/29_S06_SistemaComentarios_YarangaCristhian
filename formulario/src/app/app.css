@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.comments-page {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f6f9ff 0%, #e8f2ff 50%, #f8f4ea 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.comments-card {
+  max-width: 960px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(11, 48, 89, 0.12);
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin: 0;
+  color: #102a43;
+  font-size: 2rem;
+}
+
+.header p {
+  margin: 0.5rem 0 0;
+  color: #486581;
+}
+
+@media (max-width: 768px) {
+  .comments-card {
+    padding: 1.5rem;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+}

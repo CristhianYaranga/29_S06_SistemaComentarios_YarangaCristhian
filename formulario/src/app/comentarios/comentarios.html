@@ -1,0 +1,67 @@
+<main class="comments-page">
+  <section class="comments-card">
+    <header class="header">
+      <h1>Sistema de comentarios</h1>
+      <p>Consumo de API REST con Angular y HttpClient</p>
+      <span class="counter">Total de comentarios: {{ commentsCount }}</span>
+    </header>
+
+    <form class="comment-form" (ngSubmit)="submitComment()">
+      <div class="field">
+        <label for="name">Nombre</label>
+        <input
+          id="name"
+          name="name"
+          type="text"
+          [(ngModel)]="formData.name"
+          placeholder="Ingresa tu nombre"
+          [disabled]="isSaving"
+        />
+      </div>
+
+      <div class="field">
+        <label for="comment">Comentario</label>
+        <textarea
+          id="comment"
+          name="comment"
+          rows="4"
+          [(ngModel)]="formData.comment"
+          placeholder="Escribe tu comentario"
+          [disabled]="isSaving"
+        ></textarea>
+      </div>
+
+      <button type="submit" [disabled]="isSaving">
+        {{ isSaving ? 'Enviando...' : 'Registrar comentario' }}
+      </button>
+    </form>
+
+    @if (successMessage) {
+      <p class="message success">{{ successMessage }}</p>
+    }
+
+    @if (errorMessage) {
+      <p class="message error">{{ errorMessage }}</p>
+    }
+
+    <section class="list-section">
+      <h2>Listado de comentarios</h2>
+
+      @if (isLoading) {
+        <p class="message">Cargando comentarios...</p>
+      } @else {
+        <ul class="comments-list">
+          @for (item of comments; track item.id) {
+            <li class="comment-item">
+              <h3>{{ item.name }}</h3>
+              <p>{{ item.body }}</p>
+              @if (item.createdAt) {
+                <small>Fecha: {{ item.createdAt }}</small>
+              }
+            </li>
+          }
+        </ul>
+      }
+    </section>
+  </section>
+</main>

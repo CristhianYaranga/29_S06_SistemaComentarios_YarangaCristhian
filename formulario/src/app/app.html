@@ -1,0 +1,11 @@
+<main class="comments-page">
+  <section class="comments-card">
+    <header class="header">
+      <h1>Sistema de comentarios</h1>
+      <p>Consumo de API REST con Angular y HttpClient</p>
+    </header>
+
+    <app-task-input #inputComponent (commentAdded)="taskList.onCommentAdded($event)"></app-task-input>
+    <app-task-list #taskList></app-task-list>
+  </section>
+</main>

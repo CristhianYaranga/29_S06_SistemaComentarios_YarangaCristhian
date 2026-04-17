@@ -1,0 +1,105 @@
+<div class="comments-list-container">
+  <!-- Header con paginación en la esquina -->
+  <div class="list-header">
+    <h2>Comentarios</h2>
+    <div class="pagination-header">
+      <span class="pagination-info">
+        {{ startIndex }}-{{ endIndex }} de {{ commentsCount }}
+      </span>
+      <button 
+        class="btn-nav" 
+        (click)="previousPage()" 
+        [disabled]="isFirstPage"
+        title="Anterior"
+      >
+        &#10094;
+      </button>
+      <button 
+        class="btn-nav" 
+        (click)="nextPage()" 
+        [disabled]="isLastPage"
+        title="Siguiente"
+      >
+        &#10095;
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="isLoading" class="message loading">
+    <span>Cargando comentarios...</span>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="errorMessage" class="message error">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Lista de comentarios (estilo Gmail) -->
+  <div class="comments-table" *ngIf="!isLoading && paginatedComments.length > 0">
+    <!-- Encabezado de tabla -->
+    <div class="table-header">
+      <div class="checkbox-cell">
+        <input 
+          type="checkbox" 
+          [checked]="isAllSelected()" 
+          (change)="toggleSelectAll()"
+          class="select-all"
+        />
+      </div>
+      <div class="header-label">Nombre</div>
+      <div class="header-label">Correo</div>
+      <div class="header-label">Contenido</div>
+      <div class="header-time">Fecha</div>
+    </div>
+
+    <!-- Filas de comentarios -->
+    <div class="table-rows">
+      <div 
+        class="table-row" 
+        *ngFor="let item of paginatedComments; let last = last"
+        [class.selected]="isSelected(item.id)"
+        [class.last]="last"
+      >
+        <div class="checkbox-cell">
+          <input 
+            type="checkbox" 
+            [checked]="isSelected(item.id)" 
+            (change)="toggleSelect(item.id)"
+            class="row-checkbox"
+          />
+        </div>
+        
+        <div class="name-cell">
+          <span class="author-name">{{ item.name }}</span>
+        </div>
+        
+        <div class="email-cell">
+          <span class="email-text">{{ item.email }}</span>
+        </div>
+        
+        <div class="content-cell">
+          <span class="content-preview">{{ item.body | slice:0:60 }}{{ item.body.length > 60 ? '...' : '' }}</span>
+        </div>
+        
+        <div class="time-cell">
+          <span class="time-label" *ngIf="item.createdAt">
+            {{ item.createdAt }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado vacío -->
+  <div *ngIf="!isLoading && comments.length === 0" class="empty-state">
+    No hay comentarios disponibles.
+  </div>
+
+  <!-- Botón para eliminar seleccionados -->
+  <div class="actions" *ngIf="selectedComments.size > 0">
+    <button class="btn-delete" (click)="deleteSelected()">
+      🗑️ Eliminar {{ selectedComments.size }} seleccionado(s)
+    </button>
+  </div>
+</div>

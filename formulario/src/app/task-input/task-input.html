@@ -1,0 +1,44 @@
+<form class="comment-form" (ngSubmit)="submitComment()">
+  <div class="field">
+    <label for="name">Nombre</label>
+    <input
+      id="name"
+      name="name"
+      type="text"
+      [(ngModel)]="formData.name"
+      placeholder="Ingresa tu nombre"
+      [disabled]="isSaving"
+    />
+  </div>
+
+  <div class="field">
+    <label for="email">Correo electrónico</label>
+    <input
+      id="email"
+      name="email"
+      type="email"
+      [(ngModel)]="formData.email"
+      placeholder="tu@email.com"
+      [disabled]="isSaving"
+    />
+  </div>
+
+  <div class="field">
+    <label for="body">Comentario</label>
+    <textarea
+      id="body"
+      name="body"
+      rows="4"
+      [(ngModel)]="formData.body"
+      placeholder="Escribe tu comentario"
+      [disabled]="isSaving"
+    ></textarea>
+  </div>
+
+  <button type="submit" [disabled]="isSaving">
+    {{ isSaving ? 'Enviando...' : 'Registrar comentario' }}
+  </button>
+</form>
+
+<div *ngIf="successMessage" class="message success">{{ successMessage }}</div>
+<div *ngIf="errorMessage" class="message error">{{ errorMessage }}</div>
